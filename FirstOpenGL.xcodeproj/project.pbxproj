@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		B495882F25BBD91A006E7C3C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B495882E25BBD91A006E7C3C /* main.cpp */; };
+		B495883725BBDA3B006E7C3C /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B495883625BBDA3B006E7C3C /* libglfw3.a */; };
+		B495883925BBDA41006E7C3C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B495883825BBDA41006E7C3C /* Cocoa.framework */; };
+		B495883B25BBDA48006E7C3C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B495883A25BBDA48006E7C3C /* OpenGL.framework */; };
+		B495883D25BBDA59006E7C3C /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B495883C25BBDA59006E7C3C /* GLUT.framework */; };
+		B495883F25BBDA6B006E7C3C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B495883E25BBDA6B006E7C3C /* CoreVideo.framework */; };
+		B495884125BBDA76006E7C3C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B495884025BBDA76006E7C3C /* IOKit.framework */; };
+		B495884325BBDBC3006E7C3C /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = B495884225BBDBC3006E7C3C /* glad.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +32,13 @@
 /* Begin PBXFileReference section */
 		B495882B25BBD91A006E7C3C /* FirstOpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FirstOpenGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		B495882E25BBD91A006E7C3C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B495883625BBDA3B006E7C3C /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
+		B495883825BBDA41006E7C3C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B495883A25BBDA48006E7C3C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		B495883C25BBDA59006E7C3C /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		B495883E25BBDA6B006E7C3C /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		B495884025BBDA76006E7C3C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		B495884225BBDBC3006E7C3C /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B495884125BBDA76006E7C3C /* IOKit.framework in Frameworks */,
+				B495883F25BBDA6B006E7C3C /* CoreVideo.framework in Frameworks */,
+				B495883D25BBDA59006E7C3C /* GLUT.framework in Frameworks */,
+				B495883B25BBDA48006E7C3C /* OpenGL.framework in Frameworks */,
+				B495883925BBDA41006E7C3C /* Cocoa.framework in Frameworks */,
+				B495883725BBDA3B006E7C3C /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +63,7 @@
 			children = (
 				B495882D25BBD91A006E7C3C /* FirstOpenGL */,
 				B495882C25BBD91A006E7C3C /* Products */,
+				B495883525BBDA3A006E7C3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +78,23 @@
 		B495882D25BBD91A006E7C3C /* FirstOpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				B495884225BBDBC3006E7C3C /* glad.c */,
 				B495882E25BBD91A006E7C3C /* main.cpp */,
 			);
 			path = FirstOpenGL;
+			sourceTree = "<group>";
+		};
+		B495883525BBDA3A006E7C3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B495884025BBDA76006E7C3C /* IOKit.framework */,
+				B495883E25BBDA6B006E7C3C /* CoreVideo.framework */,
+				B495883C25BBDA59006E7C3C /* GLUT.framework */,
+				B495883A25BBDA48006E7C3C /* OpenGL.framework */,
+				B495883825BBDA41006E7C3C /* Cocoa.framework */,
+				B495883625BBDA3B006E7C3C /* libglfw3.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B495882F25BBD91A006E7C3C /* main.cpp in Sources */,
+				B495884325BBDBC3006E7C3C /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +212,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -228,6 +266,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -239,6 +279,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "/usr/local/include_opengl/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,6 +289,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "/usr/local/include_opengl/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
