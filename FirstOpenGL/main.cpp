@@ -35,7 +35,12 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "{\n"
     "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
     "}\n\0";
-
+const char *fragmentShaderSourceYellow = "#version 330 core\n"
+"out vec4 FragColor;\n"
+"void main()\n"
+"{\n"
+"   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+"}\n\0";
 
 int main(int argc, char * argv[]) {
 
@@ -72,13 +77,38 @@ int main(int argc, char * argv[]) {
 //         0.5f, -0.5f, 0.0f,
 //         0.0f,  0.5f, 0.0f
 //    };
-    float vertices[] = {
-        0.5f, 0.5f, 0.0f,   // 右上角
-        0.5f, -0.5f, 0.0f,  // 右下角
-        -0.5f, -0.5f, 0.0f, // 左下角
-        -0.5f, 0.5f, 0.0f   // 左上角
+    
+//    float vertices[] = {
+//        0.5f, 0.5f, 0.0f,   // 右上角
+//        0.5f, -0.5f, 0.0f,  // 右下角
+//        -0.5f, -0.5f, 0.0f, // 左下角
+//        -0.5f, 0.5f, 0.0f   // 左上角
+//    };
+    
+//    float vertices[] = {
+//        // first triangle
+//        -0.9f, -0.5f, 0.0f,  // left
+//        -0.0f, -0.5f, 0.0f,  // right
+//        -0.45f, 0.5f, 0.0f,  // top
+//        // second triangle
+//         0.0f, -0.5f, 0.0f,  // left
+//         0.9f, -0.5f, 0.0f,  // right
+//         0.45f, 0.5f, 0.0f   // top
+//    };
+    float firstTriangle[] = {
+         //first triangle
+        -0.9f, -0.5f, 0.0f,  // left
+        -0.0f, -0.5f, 0.0f,  // right
+        -0.45f, 0.5f, 0.0f,  // top
     };
 
+    float secondTriangle[] = {
+        // second triangle
+         0.0f, -0.5f, 0.0f,  // left
+         0.9f, -0.5f, 0.0f,  // right
+         0.45f, 0.5f, 0.0f   // top
+        
+    };
     unsigned int indices[] = { // 注意索引从0开始!
         0, 1, 3, // 第一个三角形
         1, 2, 3  // 第二个三角形
@@ -119,6 +149,17 @@ int main(int argc, char * argv[]) {
         std::cout<< "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
     
+    unsigned int fragmentShaderYellow;
+    fragmentShaderYellow= glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShaderYellow, 1, &fragmentShaderSourceYellow, NULL);
+    glCompileShader(fragmentShaderYellow);
+    
+    glGetShaderiv(fragmentShaderYellow, GL_COMPILE_STATUS, &sucess);
+    if(!sucess){
+        glGetShaderInfoLog(fragmentShaderYellow, 512, NULL, infoLog);
+        std::cout<< "ERROR::SHADER::FRAGMENTYELLOW::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    
 
     // 生成着色器程序对象
     unsigned int shaderProgram;
@@ -136,31 +177,49 @@ int main(int argc, char * argv[]) {
         std::cout<< "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog << std::endl;
     }
     
+    
+    // 生成着色器程序对象
+    unsigned int shaderProgramYELLOW;
+    shaderProgramYELLOW = glCreateProgram();
+    
+    // 链接着色器到着色器程序
+    glAttachShader(shaderProgramYELLOW, vertexShader);
+    glAttachShader(shaderProgramYELLOW, fragmentShaderYellow);
+    glLinkProgram(shaderProgramYELLOW);
+    
+    // Check link status
+    glGetProgramiv(shaderProgramYELLOW, GL_LINK_STATUS, &sucess);
+    if(!sucess){
+        glGetProgramInfoLog(shaderProgramYELLOW, 512, NULL, infoLog);
+        std::cout<< "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog << std::endl;
+    }
+    
     // 激活程序对象
-    glUseProgram(shaderProgram);
+    //glUseProgram(shaderProgram);
     
     // 删除不需要的着色器对象
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     
-    unsigned int VBO, VAO, VEO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &VEO);
+    unsigned int VBOs[2], VAOs[2];
     
-    glBindVertexArray(VAO);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VEO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glGenVertexArrays(2, VAOs); // we can also generate multiple VAOs or buffers at the same time
+    glGenBuffers(2, VBOs);
+    // first triangle setup
+    // --------------------
+    glBindVertexArray(VAOs[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);    // Vertex attributes stay the same
     glEnableVertexAttribArray(0);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
+    // glBindVertexArray(0); // no need to unbind at all as we directly bind a different VAO the next few lines
+    // second triangle setup
+    // ---------------------
+    glBindVertexArray(VAOs[1]);    // note that we bind to a different VAO now
+    glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);    // and a different VBO
+    glBufferData(GL_ARRAY_BUFFER, sizeof(secondTriangle), secondTriangle, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); // because the vertex data is tightly packed we can also specify 0 as the vertex attribute's stride to let OpenGL figure it out
+    glEnableVertexAttribArray(0);
     
     
     
@@ -177,9 +236,13 @@ int main(int argc, char * argv[]) {
         glClear(GL_COLOR_BUFFER_BIT);
         
         glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(VAOs[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // then we draw the second triangle using the data from the second VAO
+        glUseProgram(shaderProgramYELLOW);
+        glBindVertexArray(VAOs[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         // 检查并调用事件，交换缓冲
