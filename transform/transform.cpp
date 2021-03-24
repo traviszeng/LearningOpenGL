@@ -180,7 +180,14 @@ int main() {
 		trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
 		trans = glm::rotate(trans,(float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-		//trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glm::mat4 trans1 = glm::mat4(1.0f);
+		trans1 = glm::translate(trans1, glm::vec3(-0.5f, 0.5f, 0.0f));
+		trans1 = glm::scale(trans1,(float)sin(glfwGetTime()) * glm::vec3(1.0, 1.0, 1.0));
+		//trans1 = glm::rotate(trans1, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans1));
+		
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
