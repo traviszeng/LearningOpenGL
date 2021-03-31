@@ -180,6 +180,8 @@ int main()
         lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         // 设置光源位置
         lightingShader.setVec3("lightPos", lightPos);
+        // 设置照相机位置
+        lightingShader.setVec3("viewPos", camera.Position);
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
