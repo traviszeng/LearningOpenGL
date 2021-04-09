@@ -79,7 +79,7 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader lightingShader("shader_lightcaster.vs", "shader_lightcaster.fs");
+    Shader lightingShader("shader_lightcaster.vs", "shader_spotlight.fs");
     Shader lightCubeShader("shader_lightcaster.vs", "shader_light.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -180,9 +180,6 @@ int main()
     lightingShader.setInt("material.specular", 1);
 
 
-
-
-
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -204,7 +201,10 @@ int main()
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
-        lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("light.position", camera.Position);
+        lightingShader.setVec3("light.direction", camera.Front);
+        lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+
         lightingShader.setVec3("viewPos", camera.Position);
 
         // light properties
